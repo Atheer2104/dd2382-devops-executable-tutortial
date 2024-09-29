@@ -1,9 +1,7 @@
 from flask import Flask, json
 import requests
 from prisma import Prisma
-import asyncio
 
-prisma = None
 app = Flask(__name__)
 
 #fetches fact:
@@ -15,22 +13,10 @@ def retrieve_fact(type):
 	fact_id = data_in_json["id"]
 	fact = data_in_json["text"]
 	return (fact_id, fact)
-	
 
-@app.route('/api/today')
-def today():
-	(fact_id, fact) = retrieve_fact("today")
- 
-	
-	return json.jsonify(
-			fact_id=fact_id,
-			fact=fact)
 
-@app.route('/api/random')
-async def random():
-	(fact_id, fact) = retrieve_fact("random")
-	
-	await prisma.fact.upsert(
+def update_or_add_fact_to_db(fact_id, fact):
+	prisma.fact.upsert(
 		where={
 			'Fact_id': fact_id
 		},
@@ -48,6 +34,22 @@ async def random():
 		}
 	)
 
+@app.route('/api/today')
+def today():
+	(fact_id, fact) = retrieve_fact("today")
+ 
+	update_or_add_fact_to_db(fact_id, fact)	
+ 
+	return json.jsonify(
+			fact_id=fact_id,
+			fact=fact)
+
+@app.route('/api/random')
+def random():
+	(fact_id, fact) = retrieve_fact("random")
+	
+	update_or_add_fact_to_db(fact_id, fact)
+
 	return json.jsonify(
 		fact_id=fact_id,
 		fact=fact)
@@ -56,12 +58,8 @@ async def random():
 def api_helth():
 	return "OK", 200
 
-async def create_prisma_client():
-	global prisma 
-	prisma = Prisma()
-	await prisma.connect()
-
 
 if __name__ == '__main__':
-	asyncio.run(create_prisma_client())
+	prisma = Prisma()
+	prisma.connect()
 	app.run(debug=True, port=8000)
