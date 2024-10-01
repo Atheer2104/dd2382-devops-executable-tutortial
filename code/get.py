@@ -4,6 +4,7 @@ from prisma import Prisma
 import redis
 import pickle
 from datetime import datetime, timedelta
+import os 
 
 app = Flask(__name__)
 
@@ -79,10 +80,17 @@ def api_helth():
 	return "OK", 200
 
 
-if __name__ == '__main__':
-	red = redis.Redis(host='localhost', port=6379)
+
+def main(redis_port = 6379, postgres_port = 5432):
+	global red, prisma
+	red = redis.Redis(host='localhost', port=redis_port)
 	
+	os.environ["DATABASE_URL"] = f"postgres://postgres:password@localhost:{postgres_port}/users"
+ 
 	prisma = Prisma()
 	prisma.connect()
-	
+	 	
 	app.run(debug=True, port=8000)
+
+if __name__ == '__main__':
+	main()
