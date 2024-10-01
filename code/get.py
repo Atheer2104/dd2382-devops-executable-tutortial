@@ -1,6 +1,9 @@
 from flask import Flask, json
 import requests
 from prisma import Prisma
+import redis
+import pickle
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
@@ -34,15 +37,32 @@ def update_or_add_fact_to_db(fact_id, fact):
 		}
 	)
 
+def cache_todays_fact_to_redis(fact_id, fact):
+	red.set('today', pickle.dumps((fact_id, fact)))		
+	
+	now = datetime.now()
+	
+	midnight = (now + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+	seconds_until_midnight = int((midnight - now).total_seconds())
+	# print(seconds_until_midnight)
+	red.expire('today', seconds_until_midnight)
+
 @app.route('/api/today')
 def today():
-	(fact_id, fact) = retrieve_fact("today")
- 
-	update_or_add_fact_to_db(fact_id, fact)	
- 
+	today_fact = red.get("today")
+	
+	if today_fact is None:
+		fact_id, fact = retrieve_fact("today")
+		cache_todays_fact_to_redis(fact_id, fact)
+	else:
+		fact_id, fact = pickle.loads(today_fact)
+	
+	update_or_add_fact_to_db(fact_id, fact)
+	
 	return json.jsonify(
-			fact_id=fact_id,
-			fact=fact)
+		fact_id=fact_id,
+		fact=fact
+	)
 
 @app.route('/api/random')
 def random():
@@ -60,6 +80,9 @@ def api_helth():
 
 
 if __name__ == '__main__':
+	red = redis.Redis(host='localhost', port=6379)
+	
 	prisma = Prisma()
 	prisma.connect()
+	
 	app.run(debug=True, port=8000)
