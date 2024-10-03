@@ -79,15 +79,22 @@ def random():
 def api_helth():
 	return "OK", 200
 
-def setup_redis_and_postgres_connection(redis_port = 6379, postgres_port = 5432):
-	global red
+def setup_redis(redis_port = 6379):
+	global red  
 	red = redis.Redis(host='localhost', port=redis_port)
+	return red
+
+
+def setup_postgres_connection(postgres_port = 5432):
+	os.environ["DATABASE_URL"] = f"postgres://postgres:password@localhost:{postgres_port}/users"
 	
-	# os.environ["DATABASE_URL"] = f"postgres://postgres:password@localhost:{postgres_port}/users"
 	global prisma
 	prisma = Prisma()
 	prisma.connect()
+	
+	return prisma
 
 if __name__ == '__main__':
-	setup_redis_and_postgres_connection()
+	setup_redis()
+	setup_postgres_connection()
 	app.run(debug=True, port=8000)
