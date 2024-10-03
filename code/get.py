@@ -4,97 +4,93 @@ from prisma import Prisma
 import redis
 import pickle
 from datetime import datetime, timedelta
-import os 
+import os
 
 app = Flask(__name__)
 
-#fetches fact:
+
+# fetches fact:
 def retrieve_fact(type):
-	r = requests.get(f"https://uselessfacts.jsph.pl/api/v2/facts/{type}")
-	if r.status_code != 200:
-		return "Page Not Found", 404  
-	data_in_json = r.json()
-	fact_id = data_in_json["id"]
-	fact = data_in_json["text"]
-	return (fact_id, fact)
+    r = requests.get(f"https://uselessfacts.jsph.pl/api/v2/facts/{type}")
+    if r.status_code != 200:
+        return "Page Not Found", 404
+    data_in_json = r.json()
+    fact_id = data_in_json["id"]
+    fact = data_in_json["text"]
+    return (fact_id, fact)
 
 
 def update_or_add_fact_to_db(fact_id, fact):
-	prisma.fact.upsert(
-		where={
-			'Fact_id': fact_id
-		},
-		data={
-			'update': {
-				'num_views': {
-					'increment': 1
-				}
-			},
-			'create': {
-				'Fact_id': fact_id,
-				'Fact': fact,
-				'num_views': 1
-			}
-		}
-	)
+    prisma.fact.upsert(
+        where={"Fact_id": fact_id},
+        data={
+            "update": {"num_views": {"increment": 1}},
+            "create": {"Fact_id": fact_id, "Fact": fact, "num_views": 1},
+        },
+    )
+
 
 def cache_todays_fact_to_redis(fact_id, fact):
-	red.set('today', pickle.dumps((fact_id, fact)))		
-	
-	now = datetime.now()
-	
-	midnight = (now + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
-	seconds_until_midnight = int((midnight - now).total_seconds())
-	# print(seconds_until_midnight)
-	red.expire('today', seconds_until_midnight)
+    red.set("today", pickle.dumps((fact_id, fact)))
 
-@app.route('/api/today')
+    now = datetime.now()
+
+    midnight = (now + timedelta(days=1)).replace(
+        hour=0, minute=0, second=0, microsecond=0
+    )
+    seconds_until_midnight = int((midnight - now).total_seconds())
+    # print(seconds_until_midnight)
+    red.expire("today", seconds_until_midnight)
+
+
+@app.route("/api/today")
 def today():
-	today_fact = red.get("today")
-	
-	if today_fact is None:
-		fact_id, fact = retrieve_fact("today")
-		cache_todays_fact_to_redis(fact_id, fact)
-	else:
-		fact_id, fact = pickle.loads(today_fact)
-	
-	update_or_add_fact_to_db(fact_id, fact)
-	
-	return json.jsonify(
-		fact_id=fact_id,
-		fact=fact
-	)
+    today_fact = red.get("today")
 
-@app.route('/api/random')
+    if today_fact is None:
+        fact_id, fact = retrieve_fact("today")
+        cache_todays_fact_to_redis(fact_id, fact)
+    else:
+        fact_id, fact = pickle.loads(today_fact)
+
+    update_or_add_fact_to_db(fact_id, fact)
+
+    return json.jsonify(fact_id=fact_id, fact=fact)
+
+
+@app.route("/api/random")
 def random():
-	(fact_id, fact) = retrieve_fact("random")
-	
-	update_or_add_fact_to_db(fact_id, fact)
+    (fact_id, fact) = retrieve_fact("random")
 
-	return json.jsonify(
-		fact_id=fact_id,
-		fact=fact)
+    update_or_add_fact_to_db(fact_id, fact)
 
-@app.route('/api')
+    return json.jsonify(fact_id=fact_id, fact=fact)
+
+
+@app.route("/api")
 def api_helth():
-	return "OK", 200
-
-def setup_redis(redis_port = 6379):
-	global red  
-	red = redis.Redis(host='localhost', port=redis_port)
-	return red
+    return "OK", 200
 
 
-def setup_postgres_connection(postgres_port = 5432):
-	os.environ["DATABASE_URL"] = f"postgres://postgres:password@localhost:{postgres_port}/users"
-	
-	global prisma
-	prisma = Prisma()
-	prisma.connect()
-	
-	return prisma
+def setup_redis(redis_port=6379):
+    global red
+    red = redis.Redis(host="localhost", port=redis_port)
+    return red
 
-if __name__ == '__main__':
-	setup_redis()
-	setup_postgres_connection()
-	app.run(debug=True, port=8000)
+
+def setup_postgres_connection(postgres_port=5432):
+    os.environ["DATABASE_URL"] = (
+        f"postgres://postgres:password@localhost:{postgres_port}/users"
+    )
+
+    global prisma
+    prisma = Prisma()
+    prisma.connect()
+
+    return prisma
+
+
+if __name__ == "__main__":
+    setup_redis()
+    setup_postgres_connection()
+    app.run(debug=True, port=8000)
