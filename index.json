@@ -1,0 +1,17 @@
+{
+  "title": "Data access testing using Testcontainers",
+  "description": "We will create an executable tutorial in Killercoda that focus on using Testcontainers in python for testing a backend api. This api has a data access layer which consist of Redis (cache) and PostgresSQL (long term storage), which we will test.This tutorial will be using Testcontainers to manage containers for the backend testing. Some of the learning outcomes will be that the user gets an idea of what it is and the benifits of using Testcontainers. In addition to this the user will gain some knowledge in how to use the library.",
+  "backend": {
+	"imageid": "ubuntu"
+  },
+  "details": {
+	  "intro": {
+		"text": "intro/text.md"
+	  },
+	  "steps": [
+		{
+		  "text": "step1/text.md"
+		}
+	  ]
+	}
+}
