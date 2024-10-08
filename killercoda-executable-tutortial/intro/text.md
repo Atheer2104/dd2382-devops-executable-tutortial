@@ -9,6 +9,6 @@ The intended learning outcomes of the tutorial are the following.
 - Get the experience of using Testcontianers in Python to test data access layers like a PostgreSQL database and Redis
 
 There is a single prerequisite for the tutorial which is 
-- Overview/Basic understanding of how Docker works
+- Have a basic understanding of how Docker works
 
 The next step will explain why Testcontainers is important and useful. 
