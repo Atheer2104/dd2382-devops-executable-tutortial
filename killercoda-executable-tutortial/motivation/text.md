@@ -1,0 +1,5 @@
+## Motivation 
+
+Testcontainers are important since they essentially provide throwaway but lightweight instances of services like databases, message brokers, web browsers or any service that can run in a docker container. This is helpful since it allows local development and testing to run on a production-like environment without having to install, set up, and configure anything. 
+
+Nowadays it's common for an application to use various cloud infrastructures and microservices and these make it difficult for a developer to develop and test locally because everything has to be configured locally. Even though one works on a small part of the application one still needs the entire application to run locally so one can develop and run the test. This is what testcontainers help with since they provide these services for you in a desired state and will clean up after themselves, to not interefere with future testing.
