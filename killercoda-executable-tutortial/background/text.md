@@ -6,4 +6,4 @@ The second flavour is what Testcontainers calls modules these are a wide range o
 
 To recap Testcontainers when used in testing does the following things it will automatically start the container and make sure they are in a desired state before testing occurs, then the tests will run using these containerized services. Lastly, after execution has finished Testcontainers will destroy and remove the containers. This is visualised below 
 
-![test-workflow](../killercoda-executable-tutortial/assets/testcontainers-flow.png)
+![test-workflow](../../killercoda-executable-tutortial/assets/testcontainers-flow.png)
