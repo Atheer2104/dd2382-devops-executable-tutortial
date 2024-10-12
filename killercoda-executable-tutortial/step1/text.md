@@ -31,5 +31,5 @@ Let's get started!
 
 1. **Starting docker Scripts (`get.py`):**
     - `init_postgresql.sh`{{exec}} : Starts the PostgreSQL database container.
-    - `init_redis.sh` {{exec}}: Starts the Redis containers. 
+    - `init_redis.sh` {{exec}} : Starts the Redis containers. 
 
