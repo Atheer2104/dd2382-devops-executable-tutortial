@@ -1,48 +1,64 @@
-Backend API Explanation
+## Backend API Explanation
 
 In this Step, you will learn more about:
 
 1. The structure and components of our backend API
-2. How to application is usually run using Docker scripts 
-3. How to use TestContainers for testing
+2. How the backend API works 
+3. How to run application
 
 Let's get started!
 
 ## Main Components
 
-1. **Flask Application (`get.py`):**
-   - Sets up the Flask application
-   - Defines API routes and their handlers
+The main components of the backend API are the following 
+
+1. **Flask Application (`code/get.py`):**
+This file contains all the functionallity which the backend API provides it does the following 
+
+	- Defines API routes and their handlers
+We have three endpoints **/api** healthpoint endpoint for backend API and the remaning two endopoints are **/api/random** and **/api/today**, these are our service endpoint which we provide 
+
+   - Sets up the Flask application   
    - Manages interactions with external API and databases
-   - Fetches todays random or some random fact 
    
 2. **External API Integration:**
-   - Fetches facts from `https://uselessfacts.jsph.pl/api/v2/facts/`
+Our backend API it provides useless facts and these are two versions either a random fact which is retrieved at endpoint **/api/random** and fact of the day which is retrieved at endpoint **/api/today**. These facts are retrieved from another external API, more found [here](https://uselessfacts.jsph.pl)
 
 3. **Redis Caching:**
-   - Caches the "fact of the day" to reduce external API calls
-   - Implements expiration to ensure a new fact each day
+   - Fact of the day is Cached using Redis to reduce external API call
+   - Cached fact will expire at midnight to ensure consistency
 
-4. **Database Integration (Prisma):**
+4. **Postgresql Database:**
    - Stores facts and their view counts
    - Uses upsert operations to update or add facts
 
-## Setup Application
+## Setup Backend API
+
+Now we will setup & start the backend API using following steps
 
 1. **Starting docker Scripts (`get.py`):**
-    - `scripts/init_postgresql.sh`{{exec}} : Starts the PostgreSQL database container.
-    - `scripts/init_redis.sh`{{exec}} : Starts the Redis containers. 
+These scripts are used to start a postresql and a redis container that are used by the backend API
+    - `scripts/init_postgresql.sh`{{exec}}
+    - `scripts/init_redis.sh`{{exec}}
 
 2. **Installing dependencies**
-    -  `pip install -r requirements.txt`{{exec}} : The dependencies such as flask and Prisma needs to be installed. In this project 
-    we chose Prisma as an ORM to handle the the communication with the database and simplify the operations.
+The dependencies such as flask and Prisma needs to be installed. In this project we chose Prisma as an ORM to handle the the communication with the database and simplify the operations.
+
+    -  `pip install -r requirements.txt`{{exec}}
 
 3. **Setting up data model from Prisma schema** 
-    -   `prisma migrate dev`{{exec}} : One of the features that prisma offers is that it allows us to configure the data model in the schema file and then this will be migrated to the data base and implemente the data model. 
+Prisma it supports migrations which allows using a single command setup the entire postgresql database when it comes to creating the tables and columns.
 
-4. **Starting Flask**
-    -   `python code/get.py`{{exec}} : Start the flask web application
+    -   `prisma migrate dev`{{exec}}
 
+4. **Starting Backend API**
+Now we will start the backend API which is a flask application 
 
-5. **Testing** 
-    - `curl http://localhost:8000/today/`{{exec}} : 
+    -   `python code/get.py`{{exec}}
+
+5. **Endpoint Testing** 
+Now we can test our endpoints by sending the following http request to the backend API, open a new terminal and run run the following commands 
+
+    - `curl http://localhost:8000/api`{{exec}}
+	- `curl http://localhost:8000/api/today`{{exec}}
+	- `curl http://localhost:8000/api/random`{{exec}}
