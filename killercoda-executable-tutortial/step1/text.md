@@ -55,6 +55,6 @@ Now we will start the backend API which is a flask application
 
 5. **Endpoint Testing** <br/>
 Now we can test our endpoints by sending the following http request to the backend API, open a new terminal and run run the following commands 
-    - `curl http://localhost:8000/api`{{exec}}
-	- `curl http://localhost:8000/api/today`{{exec}}
-	- `curl http://localhost:8000/api/random`{{exec}}
+    - `curl http://localhost:8000/api`{{open}}
+	- `curl http://localhost:8000/api/today`{{open}}
+	- `curl http://localhost:8000/api/random`{{open}}
