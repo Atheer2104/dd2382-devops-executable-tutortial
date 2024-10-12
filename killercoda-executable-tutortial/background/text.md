@@ -6,7 +6,7 @@ This comes in two flavours the first one is known as the GenericContainer here o
 
 The second flavour is what Testcontainers calls modules these are a wide range of commonly used services which have already been configured and can be run without any boilerplate but also make it easier to access specific relevant service parameters. Modules are a higher-level abstraction of the GenericContainer so they still use the GenericContainer internally. 
 
-To recap Testcontainers when used in testing does the following things it will automatically start the container and make sure they are in a desired state before testing occurs, then the tests will run using these containerized services. Lastly, after execution has finished Testcontainers will destroy and remove the containers. This is visualised below 
+To recap Testcontainers when used in testing does the following things it will automatically start the container and make sure they are in a desired state before testing occurs, then the tests will run using these containerized services. Lastly, after execution has finished Testcontainers will destroy and remove the containers. This is visualised below. 
 
 ![test-workflow](../../killercoda-executable-tutortial/assets/testcontainers-flow.png)
 
@@ -14,4 +14,4 @@ To recap Testcontainers when used in testing does the following things it will a
 
 When running tests using Testcontainers there will be one additional container called **ryuk** (Yes, he is our favourite [Shinigami](https://static.posters.cz/image/750/97343.jpg) too) including all of the containers specified by the tests. Ryuk is a container developed by Testcontainers to remove containers/networks/volumes that are created by Testcontainers after a specific delay.
 
-It works by using container labels to decide which resources that were created and which entities of it that can be safely removed.
+It works by using container labels to decide which resources were created and which entities of it that can be safely removed.

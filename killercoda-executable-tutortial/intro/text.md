@@ -1,6 +1,6 @@
 ## Intro 👾
 
-Hello and welcome to the following executable tutorial about performing data access testing using Testcontainers. 
+Hello and welcome to the following executable tutorial about performing data access testing using Testcontainers for a backend API. 
 
 The intended learning outcomes of the tutorial are the following. 
 

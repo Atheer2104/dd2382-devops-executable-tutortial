@@ -2,9 +2,9 @@
 
 In this Step, you will learn more about:
 
-1. How the Testcontainers is setup in python to test the backend API
+1. How the Testcontainers is setup in Python to test the backend API
 2. How to get the exposed port of the containers created by Testcontainers
-3. How the Testcontainers library works in python
+3. How the Testcontainers library works in Python
 
 Let's get started!
 
@@ -47,7 +47,7 @@ def prisma():
 
 Notice that we set up the testcontainer in the pytest fixture to ensure that when we run the test cases the containers are up and running before we try to store and access anything. We also use this fixture once per session, so that we use the same storage instance for all our test cases however we can use different storage instances if that is needed. 
 
-We are creating the PostgreSQL container with the image **postgres:bullseye** and we are then defining some environment configuration for PostgreSQL like the name and password of the database together with the table, you can also see that we have set the driver to None because we don't want any driver. After starting the container we are fetching the exposed port that the Testcontainer library dynamically allocates for us by using the get_exposed_port function and using it to connect Prisma and running the migrations in another subprocess.
+We are creating the PostgreSQL container with the image **postgres:bullseye** and we are then defining some environment configuration for PostgreSQL like the name and password of the database together with the database name, you can also see that we have set the driver to None because we don't want any driver. After starting the container we are fetching the exposed port that the Testcontainer library dynamically allocates for us by using the **get_exposed_port** function and using it to connect Prisma and running the migrations in another subprocess.
 
 ### Redis 
 Here is how we setup the Redis container
