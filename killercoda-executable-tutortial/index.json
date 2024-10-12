@@ -16,7 +16,7 @@
 		{
 		  	"text": "step1/text.md",
 			"verify": "step1/verify.sh",
-			"background": "step1/background.sh"
+			"foreground": "step1/foreground.sh"
 		}
 	  ],
 	  "finish": {
