@@ -15,7 +15,6 @@
 		},
 		{
 		  	"text": "step1/text.md",
-			"verify": "step1/verify.sh",
 			"foreground": "step1/foreground.sh"
 		},
 		{
