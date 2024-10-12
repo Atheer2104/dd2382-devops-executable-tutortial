@@ -41,7 +41,7 @@ Let's get started!
     -   `prisma migrate dev`{{exec}} : One of the features that prisma offers is that it allows us to configure the data model in the schema file and then this will be migrated to the data base and implemente the data model. 
 
 4. **Starting Flask**
-    -   `uvicorn main:app --reload`{{exec}} : Start the flask web application
+    -   `python code/get.py`{{exec}} : Start the flask web application
 
 
 5. **Testing** 
