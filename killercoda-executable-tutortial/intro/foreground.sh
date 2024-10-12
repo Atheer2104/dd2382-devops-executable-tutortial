@@ -8,3 +8,4 @@ cd dd2382-devops-executable-tutortial/backend-api/
 sudo apt-get install -y postgresql-client
 
 echo "Done"
+clear
