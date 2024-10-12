@@ -53,7 +53,7 @@ if [[ -z "${SKIP_DOCKER}" ]]; then
 	  -p "${DB_PORT}":5432 \
 	  -d \
 	  --name "postgres_$(date '+%s')" \
-	  postgres -N 1000
+	  postgres:bullseye -N 1000
 	  # ^ Increased maximum number of connections for testing purposes
 fi
 
@@ -63,4 +63,4 @@ until PGPASSWORD="${DB_PASSWORD}" psql -h "${DB_HOST}" -U "${DB_USER}" -p "${DB_
   sleep 1
 done
 
->&2 echo "Postgres is up and running on port ${DB_PORT} - running migrations now!"
+>&2 echo "Postgres is up and running on port ${DB_PORT}"
