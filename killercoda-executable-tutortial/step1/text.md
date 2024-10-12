@@ -30,6 +30,19 @@ Let's get started!
 ## Setup Application
 
 1. **Starting docker Scripts (`get.py`):**
-    - `init_postgresql.sh`{{exec}} : Starts the PostgreSQL database container.
-    - `init_redis.sh` {{exec}} : Starts the Redis containers. 
+    - `scripts/init_postgresql.sh`{{exec}} : Starts the PostgreSQL database container.
+    - `scripts/init_redis.sh` {{exec}} : Starts the Redis containers. 
 
+2. **Installing dependencies**
+    -  `pip install -r requirements.txt` {{exec}} : The dependencies such as flask and Prisma needs to be installed. In this project 
+    we chose Prisma as an ORM to handle the the communication with the database and simplify the operations.
+
+3. **Setting up data model from Prisma schema** 
+    -   `prisma migrate dev` {{exec}} : One of the features that prisma offers is that it allows us to configure the data model in the schema file and then this will be migrated to the data base and implemente the data model. 
+
+4. **Starting Flask**
+    -   `uvicorn main:app --reload` {{exec}} : Start the flask web application
+
+
+5. **Testing** 
+    - `curl http://localhost:8000/today/` {{exec}} : 
