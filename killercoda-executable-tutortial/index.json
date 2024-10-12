@@ -14,17 +14,7 @@
 			"text": "background/text.md"
 		},
 		{
-		  "text": "step1/text.md",
-		  "assets": {
-          "client": [
-            {
-              "file": "backend-api\\code\\get.py",
-              "target": "/",
-              "chmod": "+x"
-            }
-          ]
-        }
-
+		  "text": "step1/text.md"
 		}
 	  ],
 	  "finish": {
