@@ -2,7 +2,7 @@
 
 In this Step, you will learn more about:
 
-1. The structure and components of our backend API
+1. The structure and components of the backend API to be tested against
 2. How the backend API works 
 3. How to run application
 
