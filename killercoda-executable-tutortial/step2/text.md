@@ -8,18 +8,18 @@ In this Step, you will learn more about:
 
 Let's get started!
 
-## How Testing is performed 
+## How Testing is Performed 
 
-We have two tests namely **test_data_access_random_endpoint** and **test_data_access_today_endpoint**. We are using pytest to run these test hence they start with the name test that is how pytest will identifiy which test functions to execute.
+We have two tests namely **test_data_access_random_endpoint** and **test_data_access_today_endpoint**. We are using pytest to run these tests hence they start with the name test that is how pytest will identify which test functions to execute.
 
-The former test function tests the random endpoint by calling the respective endpoint function and getting the fact id which is returned in the JSON response. Then it checks that in the postgreSQL database, there exists such a row with same fact id because we are saving the fact and fact id together with the view count in PostgreSQL.
+The former test function tests the random endpoint by calling the respective endpoint function and getting the fact id returned in the JSON response. Then it checks that in the PostgreSQL database, there exists such a row with the same fact id because we are saving the fact and fact id together with the view count in PostgreSQL.
 
-The latter test function tests the today endpoint by calling the respective endpoint function, it also gets the fact id and checks the same thing as the previous test when it comes to PostgreSQL but this endpoint caches the fact to Redis so it also checks in Redis that fact is available and the value is equal to the fact received from the endpoint. Finally, it also checks that the cached fact in Redis has an expiration date.
+The latter test function tests the today endpoint by calling the respective endpoint function, it also gets the fact id and checks the same thing as the previous test when it comes to PostgreSQL but this endpoint caches the fact to Redis so the test also checks in Redis that fact is available and the value is equal to the fact received from the endpoint. Finally, it also checks that the cached fact in Redis has an expiration date.
 
-## How Testcontainers is Integrated into the tests 
+## How Testcontainers are Integrated Into The Tests 
 As mentioned Testcontainers allow us to spin up dockercontainers for our services such as Redis and PostgreSQL. These are needed to implement our pytest test cases on the data insertion and check that the stored data is accessible.    
 
-As specified earlier one can start a GenericContainer in Testcontainers and in the python library for Testcontainers, this is known as DockerContainer("X"), here X refers to the name of the docker image, more info about how this looks like is [here](https://testcontainers-python.readthedocs.io/en/latest/core/README.html), since we are using well-known services we are not using GenericContainer instead we are using modules that are provided by Testcontainers, list of the available modules are found [here](https://testcontainers-python.readthedocs.io/en/latest/modules/index.html)
+As specified earlier one can start a GenericContainer in Testcontainers and in the python library for Testcontainers, this is known as DockerContainer("X"), here X refers to the name of the docker image, more info about how this looks like is [here](https://testcontainers-python.readthedocs.io/en/latest/core/README.html). Since we are using well-known services we are not using GenericContainer instead we are using modules that are provided by Testcontainers, A list of the available modules in Python is found [here](https://testcontainers-python.readthedocs.io/en/latest/modules/index.html)
 
 ### PostgreSQL
 Here's how we set up PostgreSQL using Testcontainers:
@@ -45,9 +45,9 @@ def prisma():
 	return prisma
 ```{{}}
 
-Notice that we setup up this Testcontainer in the pytest fixture to ensure that when we run the testcases the containers are up and running before we try to store and access anything. We also use this fixutre one per session, so that we use the same storage instance for all our testcases however we can use the a different storage instance if that is needed. 
+Notice that we set up the testcontainer in the pytest fixture to ensure that when we run the test cases the containers are up and running before we try to store and access anything. We also use this fixture once per session, so that we use the same storage instance for all our test cases however we can use different storage instances if that is needed. 
 
-We can also see that we are setting up the prisma connection to the PostgreSQL database however for this to work we need to get the port of that our PostgreSQL container is exposed to. We fetching the exposed port that the Testcontainer library dynamcly allocates for us by using the get_exposed_port function and use it to connect Prisma.
+We are creating the PostgreSQL container with the image **postgres:bullseye** and we are then defining some environment configuration for PostgreSQL like the name and password of the database together with the table, you can also see that we have set the driver to None because we don't want any driver. After starting the container we are fetching the exposed port that the Testcontainer library dynamically allocates for us by using the get_exposed_port function and using it to connect Prisma and running the migrations in another subprocess.
 
 ### Redis 
 Here is how we setup the Redis container
@@ -67,6 +67,8 @@ def red():
 	# The setup_redis function is assumed to create and return a Redis client
 	red = setup_redis(exposed_port)
 	return red
-    ```{{}}
+```{{}}
 
-    This works preaty much in the same way as the setup for PostgreSQL Testcontainer. We use a communuity module for redis and then fetch the allocated exposed port then start the redis Testcontainer. The setup function for setup_redis and setup_postgres_connection can be found in the [View file](backend-api/code/get.py){{open}}
+This works pretty much in the same way as the setup for PostgreSQL testcontainer, but now we are using a Redis container with the image being **redis:7.4-rc2-bookworm** then we are starting the container. Also here we need to get the exposed port so that we can set up a connection to the Redis instance.  
+ 
+The setup function for setup_redis and setup_postgres_connection can be found [here](backend-api/code/get.py){{open}}, these initiate the connection to these services which are used then to communicate with respective service
