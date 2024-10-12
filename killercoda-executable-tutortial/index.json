@@ -3,8 +3,7 @@
 	"description": "Testing using testcontainers in python",
 	"details": {
 	  "intro": {
-		  "text": "intro/text.md",
-		  "background": "intro/background.sh"
+		  "text": "intro/text.md"
 	  },
 	  "steps": [
 		{
