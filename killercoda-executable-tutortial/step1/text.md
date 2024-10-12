@@ -27,8 +27,8 @@ Our backend API it provides *useless facts* and these come in two versions eithe
 3. **Redis Caching:** <br/>
    - "Fact of The Day" is Cached using Redis to reduce external API calls
    - The cached fact will expire at midnight to ensure consistency
-
 <br/>
+
 4. **PostgreSQL Database:**<br/>
    - Stores facts together with a view count
    - Uses upsert operations to update or add facts
@@ -41,29 +41,27 @@ Now we will setup & start the backend API using following steps
 These scripts are used to start a postresql and a redis container that are used by the backend API
     - `scripts/init_postgresql.sh`{{exec}}
     - `scripts/init_redis.sh`{{exec}}
-
 <br/>
+
 2. **Installing dependencies** <br/>
 The dependencies such as flask and Prisma needs to be installed. In this project we chose Prisma as an ORM to handle the the communication with the database and simplify the operations.
-
     -  `pip install -r requirements.txt`{{exec}}
-
 <br/>
+
 3. **Setting up data model from Prisma schema** <br/>
 Prisma it supports migrations which allows using a single command setup the entire postgresql database when it comes to creating the tables and columns.
 
     -   `prisma migrate dev`{{exec}}
-
 <br/>
+
 4. **Starting Backend API**<br/>
 Now we will start the backend API which is a flask application 
 
     -   `python code/get.py`{{exec}}
-
 <br/>
+
 5. **Endpoint Testing** <br/>
 Now we can test our endpoints by sending the following http request to the backend API, open a new terminal and run run the following commands 
-
     - `curl http://localhost:8000/api`{{exec}}
 	- `curl http://localhost:8000/api/today`{{exec}}
 	- `curl http://localhost:8000/api/random`{{exec}}
