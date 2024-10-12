@@ -7,4 +7,6 @@ cd dd2382-devops-executable-tutortial/backend-api/
 # install psql
 sudo apt-get install -y postgresql-client
 
+export DATABASE_URL=postgres://postgres:password@localhost:5432/users
+
 echo "Done"
