@@ -26,3 +26,10 @@ Let's get started!
 4. **Database Integration (Prisma):**
    - Stores facts and their view counts
    - Uses upsert operations to update or add facts
+
+## Setup Application
+
+1. **Starting docker Scripts (`get.py`):**
+    - `init_postgresql.sh`{{exec}} : Starts the PostgreSQL database container.
+    - `init_redis.sh` {{exec}}: Starts the Redis containers. 
+
