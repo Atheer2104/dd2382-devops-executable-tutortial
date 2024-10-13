@@ -1,5 +1,11 @@
 #!/bin/bash
 
+set -x
+
+set -e
+
+set -o pipefail
+
 # cloning code repository
 
 cd filesystem/home/ubuntu/
