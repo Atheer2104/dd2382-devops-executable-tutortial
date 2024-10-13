@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -x
-
 echo starting...
 
 # cloning code repository
