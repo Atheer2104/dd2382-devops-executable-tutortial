@@ -11,4 +11,4 @@ The intended learning outcomes of the tutorial are the following.
 There is a single prerequisite for the tutorial which is 
 - Have a basic understanding of how Docker works
 
-Note: We have marked some Titles with (Theory) or (Practical) to let you now if the step includes practical commands to exectute or not
+Note: We have marked some Titles with (Theory) or (Practical) to let you know if the step includes practical commands to execute or not

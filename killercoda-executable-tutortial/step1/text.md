@@ -9,19 +9,19 @@ Let's get started!
 
 ## Main Components
 
-The main components of the backend API are the following 
+The main components of the backend API are the following. 
 
 1. **Flask Application:** <br/>
-The file at **code/get.py** contains all the functionallity which the backend API provides and it does the following 
+The file at **code/get.py** contains all the functionality which the backend API provides and it does the following. 
 
-	- Defines API routes and their handlers
-We have three endpoints **/api** a healthpoint for the API and the remaning two endopoints are **/api/random** and **/api/today**, these are our service endpoint which we provide 
+ - Defines API routes and their handlers
+We have three endpoints **/api** a health point for the API and the remaining two endpoints are **/api/random** and **/api/today**, these are the service endpoints that the API provide. 
 
    - Sets up the Flask application   
    - Manages interactions with external API and databases
    
 2. **External API Integration:** <br/>
-Our backend API it provides *useless facts* and these come in two versions either a random fact which is retrieved at **/api/random**. The other version is "Fact of The Day" which is retrieved at **/api/today**. These facts are retrieved from another external API, more details found [here](https://uselessfacts.jsph.pl).
+The backend API provides *useless facts* and these come in two versions either a random fact which is retrieved at **/api/random**. The other version is "Fact of The Day" which is retrieved at **/api/today**. These facts are retrieved from another external API, more details found [here](https://uselessfacts.jsph.pl).
 3. **Redis Caching:**
    - "Fact of The Day" is Cached using Redis to reduce external API calls, since it's the same fact
    - The cached fact will expire at midnight to ensure consistency

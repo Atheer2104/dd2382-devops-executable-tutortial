@@ -17,7 +17,7 @@ The former test function tests the random endpoint by calling the respective end
 The latter test function tests the today endpoint by calling the respective endpoint function, it also gets the fact id and checks the same thing as the previous test when it comes to PostgreSQL but this endpoint caches the fact to Redis so the test also checks in Redis that fact is available and the value is equal to the fact received from the endpoint. Finally, it also checks that the cached fact in Redis has an expiration date.
 
 ## How Testcontainers are Integrated Into The Tests 
-As mentioned Testcontainers allow us to spin up dockercontainers for our services such as Redis and PostgreSQL. These are needed to implement our pytest test cases on the data insertion and check that the stored data is accessible.    
+As mentioned Testcontainers allow us to spin up containers for our services such as Redis and PostgreSQL. These are needed to implement our pytest test cases on the data insertion and check that the stored data is accessible.    
 
 As specified earlier one can start a GenericContainer in Testcontainers and in the python library for Testcontainers, this is known as DockerContainer("X"), here X refers to the name of the docker image, more info about how this looks like is [here](https://testcontainers-python.readthedocs.io/en/latest/core/README.html). Since we are using well-known services we are not using GenericContainer instead we are using modules that are provided by Testcontainers, A list of the available modules in Python is found [here](https://testcontainers-python.readthedocs.io/en/latest/modules/index.html)
 
