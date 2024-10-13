@@ -33,17 +33,16 @@ Our backend API it provides *useless facts* and these come in two versions eithe
 
 ## Setup Backend API
 
-Now we will setup & start the backend API using following steps
+Now we will setup & start the backend API, we have setup an empty virtual environment for you already and activated it so we continue on with the following steps 
 
-1. **Starting docker Scripts:** <br/>
+1. **Installing dependencies** <br/>
+The dependencies such as Flask and Prisma needs to be installed. In this project we chose Prisma as an ORM to handle the the communication with the database to simplify the operations.
+	-  `pip install -r requirements.txt`{{exec}}
+
+2. **Starting docker Scripts:** <br/>
 These scripts are used to start a PostgreSQL and a Redis container that are used by the backend API
     - `scripts/init_postgresql.sh`{{exec}}
     - `scripts/init_redis.sh`{{exec}}
-
-
-2. **Installing dependencies** <br/>
-The dependencies such as Flask and Prisma needs to be installed. In this project we chose Prisma as an ORM to handle the the communication with the database to simplify the operations.
-    -  `pip install -r requirements.txt`{{exec}}
 
 3. **Setting up data model from Prisma schema** <br/>
 Prisma it supports migrations which allows using a single command to setup the entire PostgreSQL database when it comes to creating the tables and columns.
