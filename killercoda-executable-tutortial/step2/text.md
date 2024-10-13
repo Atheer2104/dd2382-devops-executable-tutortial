@@ -1,13 +1,12 @@
-## Testing using Testcontainers 
+## How the Testcontainers is setup in the backend API (Theory)
 
 In this Step, you will learn more about:
 
 1. How the Testcontainers is setup in Python to test the backend API
 2. How to get the exposed port of the containers created by Testcontainers
 3. How the Testcontainers library works in Python
-4. Test containers installation
 
-Let's get started!
+Let's get more started!
 
 ## How Testing is Performed 
 
@@ -73,15 +72,3 @@ def red():
 This works pretty much in the same way as the setup for PostgreSQL testcontainer, but now we are using a Redis container with the image being **redis:7.4-rc2-bookworm** then we are starting the container. Also here we need to get the exposed port so that we can set up a connection to the Redis instance.  
  
 The setup function for setup_redis and setup_postgres_connection can be found [here](backend-api/code/get.py){{open}}, these initiate the connection to these services which are used then to communicate with respective service
-
-## Test containers installation
-
-1. **Installing testcontainers:** <br/>
-We need to install the testcontainers library with following commnad
-    - `pip install testcontainers`{{exec}}
-
-2. **Installing the postgress and redis testcontainers:** <br/>
-We also need to make sure the the specific containers that we need are installed into the testcontainer module and
-these can be installed by following commands
-    - `pip install testcontainers[postgres]`{{exec}}
-    - `pip install testcontainers[redis] `{{exec}}
