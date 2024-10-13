@@ -9,5 +9,7 @@ curl http://localhost:8000/api/today
 curl http://localhost:8000/api/random
 
 if lsof -i:8000 > /dev/null; then
-  kill $(lsof -t -i:8000)
+	kill $(lsof -t -i:8000)
+else
+	exit 1
 fi

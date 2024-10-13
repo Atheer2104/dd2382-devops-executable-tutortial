@@ -32,3 +32,5 @@ Now we can test our endpoints by sending the following http request to the backe
 	- `curl http://localhost:8000/api`{{exec}}
 	- `curl http://localhost:8000/api/today`{{exec}}
 	- `curl http://localhost:8000/api/random`{{exec}}
+
+**Note: Don't close the flask server manually this will be done automatically by going to next step**
