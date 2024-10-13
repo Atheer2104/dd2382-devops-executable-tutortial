@@ -19,7 +19,8 @@
 			"foreground": "step1/foreground.sh"
 		},
 		{
-			"text": "step1.5/text.md"
+			"text": "step1.5/text.md",
+			"verify": "step1.5/verify.sh"
 		},
 		{
 			"text": "step2/text.md"
