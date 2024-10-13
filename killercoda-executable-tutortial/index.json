@@ -11,12 +11,12 @@
 			"text": "motivation/text.md"
 		},
 		{
-			"text": "background/text.md",
-			"foreground": "background/foreground.sh"
+			"text": "background/text.md"
 			
 		},
 		{
-		  	"text": "step1/text.md"
+		  	"text": "step1/text.md",
+			"foreground": "step1/foreground.sh"
 		},
 		{
 			"text": "step1.5/text.md"
