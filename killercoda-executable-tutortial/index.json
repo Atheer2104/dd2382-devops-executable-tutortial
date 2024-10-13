@@ -11,8 +11,8 @@
 		},
 		{
 			"text": "background/text.md",
-			"foreground": "intro/foreground.sh",
-			"background": "intro/background.sh"
+			"foreground": "background/foreground.sh",
+			"background": "background/background.sh"
 		},
 		{
 		  	"text": "step1/text.md"
