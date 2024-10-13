@@ -3,15 +3,16 @@
 	"description": "Testing using testcontainers in python",
 	"details": {
 	  "intro": {
-			"text": "intro/text.md",
-			"foreground": "intro/foreground.sh"
+			"text": "intro/text.md"
 	  },
 	  "steps": [
 		{
 			"text": "motivation/text.md"
 		},
 		{
-			"text": "background/text.md"
+			"text": "background/text.md",
+			"foreground": "intro/foreground.sh",
+			"background": "intro/background.sh"
 		},
 		{
 		  	"text": "step1/text.md"
