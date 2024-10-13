@@ -69,7 +69,7 @@ def random():
 
 @app.route("/api")
 def api_helth():
-    return "OK", 200
+	return json.jsonify("OK")
 
 
 def setup_redis(redis_port=6379):

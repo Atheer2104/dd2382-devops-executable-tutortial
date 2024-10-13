@@ -70,5 +70,4 @@ def red():
 ```{{}}
 
 This works pretty much in the same way as the setup for PostgreSQL testcontainer, but now we are using a Redis container with the image being **redis:7.4-rc2-bookworm** then we are starting the container. Also here we need to get the exposed port so that we can set up a connection to the Redis instance.  
- 
-The setup function for setup_redis and setup_postgres_connection can be found [here](backend-api/code/get.py){{open}}, these initiate the connection to these services which are used then to communicate with respective service
+
