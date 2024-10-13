@@ -14,7 +14,7 @@ The main components of the backend API are the following.
 1. **Flask Application:** <br/>
 The file at **code/get.py** contains all the functionality which the backend API provides and it does the following. 
 
- - Defines API routes and their handlers
+	- Defines API routes and their handlers
 We have three endpoints **/api** a health point for the API and the remaining two endpoints are **/api/random** and **/api/today**, these are the service endpoints that the API provide. 
 
    - Sets up the Flask application   
